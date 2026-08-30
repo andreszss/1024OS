@@ -163,7 +163,6 @@ void execute_command() {
 	print("clear: limpiar la pantalla.\n", 0x0F);
 	print("beep: suena un pitido.\n", 0x0F);
 	print("fetch: muestra la info del sistema.\n", 0x0F);
-	print("matrix: escribe aleatoriamente en la pantalla\n", 0x0F);
 	print("poweroff: apaga el equipo. (solo hipervisores: QEMU, VirtualBox/VMware, Bochs)\n", 0x0F);
 	print("reboot: reinicia el equipo.\n", 0x0F);
 	print("credits: muestra los creditos.\n", 0x0F);
@@ -200,13 +199,13 @@ void execute_command() {
     }
     // FETCH: Muestra la información del sistema
     else if (strcmp(command_buffer, "fetch") == 0) {
-        print("  _   ___  ____   _  _    ___   ____  \n", 0x0B);
-        print(" / | / _ \\___ \\ | || |  / _ \\ / ___| \n", 0x0B);
-        print(" | | | | |__) | | || |_| | | |\\___ \\ \n", 0x0B);
-        print(" | | |_| / __/ |__   _| |_| | ___) |\n", 0x0B);
-        print(" |_|\\___/_____|   |_|  \\___/|____/  \n", 0x0B);
+		print(" _    ___   ____   _  _   \n", 0x0B);
+        print("/ |  / _ \\ |___ \\ | || |  \n", 0x0B);
+        print("| | | | | |  __) || || |_ \n", 0x0B);
+        print("| | | |_| | / __/ |__   _|\n", 0x0B);
+        print("|_|  \\___/ |_____|   |_|  \n", 0x0B);
         print("--------------------------------------\n", 0x07);
-        print("OS:            1024OS v0.2\n", 0x0F);
+        print("OS:            1024OS v0.3\n", 0x0F);
         print("Kernel:        Pavilionix86 0.2\n", 0x0F);
         print("Shell:         mini-sh 0.1\n", 0x0F);
 	    print("Init System:   dvInit 0.1\n", 0x0F);
@@ -217,17 +216,6 @@ void execute_command() {
 	    print("Hecho por: Andresqwq\n", 0x0B);
 	    print("Gracias por probar 1024OS!\n", 0x0F);
 	    beep(50);
-    }
-    // MATRIX: Escribe caracteres aleatorios en la pantalla
-    else if (strcmp(command_buffer, "matrix") == 0) {
-        clear_screen();
-        // La pantalla VGA estándar es de 80x25 = 2000 caracteres
-        for(int i = 0; i < 2000; i++) {
-            // Generamos un caracter "aleatorio" usando el índice i
-            // Esto toma un valor entre 33 y 126 (caracteres ASCII visibles)
-            char c = (char)((i * 13 + 7) % 94 + 33); 
-            put_char(c, 0x02); 
-        }
     }
     // WHOAMI: Muestra quien eres
     else if (strcmp(command_buffer, "whoami") == 0) {
@@ -254,6 +242,11 @@ void execute_command() {
     print("- Corregido: Se reescribio el codigo y ahora es mas estable y ordenado.\n", 0x0F);
     print("- Añadido: Mas dispositivos compatible con poweroff.\n", 0x0F);
     print("- Añadido: Soporte para mayusculas.\n", 0x0F);
+	print("0.3:\n", 0x0A);
+	print("- Reemplazado: Se reemplazo el script de build, por uno mas robusto, mas\ndetallado, y mejor estructurado.\n", 0x0F);
+	print("- Corregido: Arte ascii de 'fetch' ahora esta bien hecho.\n", 0x0F);
+	print("- Corregido: Error al identificar la version de el sistema.\n", 0x0F);
+	print("- Eliminado: Eliminado el comando 'matrix', se planea añadir uno mejor\nimplementado pronto\n", 0x0F);
     print("Nota: Cada herramienta, se actualiza independientemente de las demás.\n", 0x0E);
     }
     // Si el comando no es reconocido y el buffer no está vacío, mostramos un error
@@ -311,8 +304,8 @@ void kernel_main() {
     print("[OK] Limpiado de pantalla correcto.\n", 0x0A);
     print("----------------------------------\n", 0x02);
     print("Bienvenido a 1024OS!\n", 0x0A);
-    print("Version: 0.2\n", 0x0F);
-    print("Kernel: Pavilionix86\n", 0x0F);
+    print("Version: 0.3\n", 0x0F);
+    print("Kernel: Pavilionix86 0.2\n", 0x0F);
     print("> ", 0x07);
 
     // BUCLE PRINCIPAL (donde se ejecuta el kernel)
