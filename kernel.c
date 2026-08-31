@@ -261,7 +261,7 @@ void execute_command() {
 	print("- Eliminado: Eliminado el comando 'matrix', se planea añadir uno mejor\nimplementado pronto\n", 0x0F);
 
     print("0.4-rc1:\n", 0x0A);
-    print("- Corregido: Reestructuracion de codigo fuente" 0x0E);
+    print("- Corregido: Reestructuracion de codigo fuente\n", 0x0E);
     print("Nota: Cada herramienta, se actualiza independientemente de las demás.\n", 0x0E);
     }
 
