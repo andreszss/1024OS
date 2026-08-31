@@ -38,7 +38,7 @@ unsigned char* video_memory = (unsigned char*)0xB8000;
 // /* --- UTILIDADES DE PANTALLA Y DELAY --- */
 // --------------------------------------------
 
-// Función para actualizar la posicion del cursor en la pantalla
+// Actualizar cursor en pantalla
 void update_cursor() {
     unsigned short pos = term_y * 80 + term_x;
     outb(0x3D4, 0x0F);
@@ -47,18 +47,18 @@ void update_cursor() {
     outb(0x3D5, (unsigned char)((pos >> 8) & 0xFF));
 }
 
-// Función para esperar milisegundos reales (independiente de los MHz del CPU)
+// Milisegundos reales
 void sleep(int ms) {
     for (int i = 0; i < ms; i++) {
-        // El PIT oscila a 1.193182 MHz
-        // 1193 ciclos son aproximadamente 1ms
-        outb(0x43, 0x00); // Comando para leer el contador actual del Canal 0
+        // 1.193182 MHz
+        // 1193 ciclos = 1ms
+        outb(0x43, 0x00);
         unsigned char laton = inb(0x40);
         unsigned char haton = inb(0x40);
     }
 }
 
-// Función para hacer scroll cuando llegamos al borde inferior
+// Scroll
 void scroll() {
     if (term_y >= 25) {
         // Mover lineas hacia arriba
@@ -90,13 +90,13 @@ void beep(int duracion_ms) {
     outb(0x42, (unsigned char)(div >> 8));
     unsigned char tmp = inb(0x61);
     if (!(tmp & 3)) {
-        outb(0x61, tmp | 3); // Enciende el pitido (bits 0 y 1)
+        outb(0x61, tmp | 3); // Enciende el pitido
     }
     for (int i = 0; i < duracion_ms * 64; i++) {
         while ((inb(0x61) & 0x10) == 0);
         while ((inb(0x61) & 0x10) != 0);
     }
-    outb(0x61, inb(0x61) & 0xFC); // Apaga el pitido (limpia bits 0 y 1)
+    outb(0x61, inb(0x61) & 0xFC); // Apaga el pitido
 }
 // CLEAR_SCREEN: Limpia toda la pantalla y resetea el cursor
 void clear_screen() {
@@ -156,6 +156,9 @@ void halt() {
 void execute_command() {
     command_buffer[buffer_idx] = '\0';
     print("\n", 0x07);
+
+    // COMANDOS:
+
     // HELP: Muestra la ayuda
     if (strcmp(command_buffer, "help") == 0) {
     print("Comandos:\n", 0x0A);
@@ -170,33 +173,37 @@ void execute_command() {
 	print("echo: muestra lo que escribes.\n", 0x0F);
 	print("changelog: muestra los cambios de las versiones.\n", 0x0F);
     } 
+
     // CLEAR: Limpiar pantalla
     else if (strcmp(command_buffer, "clear") == 0) {
         clear_screen();
         print("> ", 0x07);
     }
+
     // BEEP: Suena un pitido
     else if (strcmp(command_buffer, "beep") == 0) {
         print("BEEP!\n", 0x0A);
         beep(100);
-    } 
+    }
+
     // REBOOT: Reiniciar equipo
     else if (strcmp(command_buffer, "reboot") == 0) {
         outb(0x64, 0xFE);
-    } 
+    }
+
     // POWEROFF: Apagar equipo (hipervisores compatibles)
     else if (strcmp(command_buffer, "poweroff") == 0) {
         print("Apagando 1024OS...\n", 0x0C);
         outw(0x604, 0x2000);  // 1. QEMU (ACPI)
         outw(0x4004, 0x3400); // 2. VirtualBox/VMware
-	    outw(0xB004, 0x2000); // 3. Bochs/QEMU Viejo
+	    outw(0xB004, 0x2000); // 3. Bochs/QEMU viejo
         outb(0x501, 0x31);    // 4. Cloud Hypervisor / QEMU (MicroVM)
         outw(0x8900, 0x8900); // 5. Bochs Debug Port
-        print("Entorno no compatible con ACPI simple:\n", 0x0E);
-        print("Es seguro y recomendado, apagar con el boton!\n", 0x07);
-        print("Sistema en estado HALT!\n", 0x0C);
+        print("Ahora es seguro apagar con el boton\n", 0x07);
+        print("Sistema en estado halt\n", 0x0C);
         halt();
     }
+
     // FETCH: Muestra la información del sistema
     else if (strcmp(command_buffer, "fetch") == 0) {
 		print(" _    ___   ____   _  _   \n", 0x0B);
@@ -205,36 +212,40 @@ void execute_command() {
         print("| | | |_| | / __/ |__   _|\n", 0x0B);
         print("|_|  \\___/ |_____|   |_|  \n", 0x0B);
         print("--------------------------------------\n", 0x07);
-        print("OS:            1024OS v0.3\n", 0x0F);
+        print("OS:            1024OS v0.4-rc1\n", 0x0F);
         print("Kernel:        Pavilionix86 0.2\n", 0x0F);
         print("Shell:         mini-sh 0.1\n", 0x0F);
-	    print("Init System:   dvInit 0.1\n", 0x0F);
-	    print("Architecture:  x86\n", 0x0F);
+	    print("Init System:   dvInit 0.2\n", 0x0F);
+	    print("Arch:          i386 (x86)\n", 0x0F);
     }
+
     // CREDITS: Muestra los creditos del sistema
     else if (strcmp(command_buffer, "credits") == 0) {
 	    print("Hecho por: Andresqwq\n", 0x0B);
 	    print("Gracias por probar 1024OS!\n", 0x0F);
 	    beep(50);
     }
+
     // WHOAMI: Muestra quien eres
     else if (strcmp(command_buffer, "whoami") == 0) {
 	print("root\n", 0x0F);
     }
+
     // ECHO : Imprime lo que escribes después de "echo "
     else if (strncmp(command_buffer, "echo ", 5) == 0) {
         // Imprimimos desde la posición 5 del búfer (después de "echo ")
         print(&command_buffer[5], 0x07);
         print("\n", 0x07);
     }
-    // ECHO: Imprime mensaje de uso si solo se escribe "echo" sin parámetros
     else if (strcmp(command_buffer, "echo") == 0) {
         print("Uso: echo <mensaje>\n", 0x0E);
     }
+
     // CHANGELOG: Muestra los cambios de las versiones
     else if (strcmp(command_buffer, "changelog") == 0) {
 	print("0.1:\n", 0x0A);
 	print("- Primera version!!!\n", 0x0F);
+
     print("0.2:\n", 0x0A);
     print("- Reemplazado: Se elimino el bootloader GRUB por Syslinux.\n", 0x0F);
     print("- Corregido: Se corrigieron algunos bugs menores.\n", 0x0F);
@@ -243,12 +254,20 @@ void execute_command() {
     print("- Añadido: Mas dispositivos compatible con poweroff.\n", 0x0F);
     print("- Añadido: Soporte para mayusculas.\n", 0x0F);
 	print("0.3:\n", 0x0A);
+
 	print("- Reemplazado: Se reemplazo el script de build, por uno mas robusto, mas\ndetallado, y mejor estructurado.\n", 0x0F);
 	print("- Corregido: Arte ascii de 'fetch' ahora esta bien hecho.\n", 0x0F);
 	print("- Corregido: Error al identificar la version de el sistema.\n", 0x0F);
 	print("- Eliminado: Eliminado el comando 'matrix', se planea añadir uno mejor\nimplementado pronto\n", 0x0F);
+
+    print("0.4-rc1:\n", 0x0A);
+    print("- Corregido: Reestructuracion de codigo fuente");
     print("Nota: Cada herramienta, se actualiza independientemente de las demás.\n", 0x0E);
     }
+
+    // FIN DE COMANDOS
+
+
     // Si el comando no es reconocido y el buffer no está vacío, mostramos un error
     else if (buffer_idx > 0) {
         print("Comando desconocido.\n", 0x0C);
@@ -279,7 +298,7 @@ char get_ascii(unsigned char sc, int shift) {
         'Z', 'X', 'C', 'V', 'B', 'N', 'M'
     };
 
-    if (sc == 0x39) return ' '; // Espacio siempre es igual
+    if (sc == 0x39) return ' '; // Espacio
     if (sc < 128) {
         return shift ? map_shift[sc] : map_normal[sc];
     }
@@ -291,24 +310,24 @@ char get_ascii(unsigned char sc, int shift) {
 // ---------------------------------------
 
 void kernel_main() {
-    // PRIMER BEEP PARA INDICAR QUE SE INICIO CORRECTAMENTE
+    // PRIMER BEEP
     beep(200);
-    // DESACTIVAR AVISOS DE HARDWARE (PIC)
-    outb(0x21, 0xFD); // Solo dejamos pasar el teclado (IRQ 1)
-    outb(0xA1, 0xFF); // Desactivamos el PIC secundario
-    // INICIO DEL KERNEL
+    // DESACTIVAR PIC
+    outb(0x21, 0xFD); // SOLO IRQ 1
+    outb(0xA1, 0xFF); // DESACTIVAR PIC
+    // INICIO
     clear_screen();
     print("Cargando Kernel: Pavilionix86 0.2...\n", 0x0A);
     print("Iniciando kernel: Pavilionix86 0.2...\n", 0x0A);
-    print("dvInit 0.1 esta iniciando...\n", 0x0A);
+    print("dvInit 0.2 esta iniciando...\n", 0x0A);
     print("[OK] Limpiado de pantalla correcto.\n", 0x0A);
     print("----------------------------------\n", 0x02);
     print("Bienvenido a 1024OS!\n", 0x0A);
-    print("Version: 0.3\n", 0x0F);
+    print("Version: 0.4-rc1\n", 0x0F);
     print("Kernel: Pavilionix86 0.2\n", 0x0F);
-    print("> ", 0x07);
+    print("-> ", 0x07);
 
-    // BUCLE PRINCIPAL (donde se ejecuta el kernel)
+    // KERNEL
     while(1) {
         if (inb(0x64) & 0x01) {
             unsigned char sc = inb(0x60);
