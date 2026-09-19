@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-ISO_DIR="ISO"
+ISO_DIR="iso"
 KERNEL_NAME="pavilionix86.bin"
 
 log() {
@@ -46,10 +46,10 @@ main() {
 	checkdependencies
 
 	log 2. building
-	nasm -f elf32 boot.asm -o boot.o 
-	gcc -m32 -ffreestanding -fno-pic -fno-stack-protector -c kernel.c -o kernel.o
+	nasm -f elf32 src/boot.asm -o src/boot.o 
+	gcc -m32 -ffreestanding -fno-pic -fno-stack-protector -c src/kernel.c -o src/kernel.o
 	log 3. linking
-	ld -m elf_i386 -T linker.ld boot.o kernel.o -o $KERNEL_NAME 
+	ld -m elf_i386 -T src/linker.ld src/boot.o src/kernel.o -o $KERNEL_NAME 
 
 	log 4. updating $ISO_DIR
 	mv $KERNEL_NAME $ISO_DIR/ 
