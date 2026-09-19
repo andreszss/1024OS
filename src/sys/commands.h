@@ -41,7 +41,7 @@ void execute_command() {
         print("Apagando 1024OS...\n", 0x0C);
         outw(0x604, 0x2000);  // 1. QEMU (ACPI)
         outw(0x4004, 0x3400); // 2. VirtualBox/VMware
-	   outw(0xB004, 0x2000); // 3. Bochs/QEMU viejo
+	outw(0xB004, 0x2000); // 3. Bochs/QEMU viejo
         outb(0x501, 0x31);    // 4. Cloud Hypervisor / QEMU (MicroVM)
         outw(0x8900, 0x8900); // 5. Bochs Debug Port
         print("Ahora es seguro apagar con el boton\n", 0x07);
@@ -57,11 +57,11 @@ void execute_command() {
         print("| | | |_| | / __/ |__   _|\n", 0x0B);
         print("|_|  \\___/ |_____|   |_|  \n", 0x0B);
         print("--------------------------------------\n", 0x07);
-        print("OS:            1024OS v0.4-rc1\n", 0x0F);
+        print("OS:            1024OS v0.4-rc2\n", 0x0F);
         print("Kernel:        Pavilionix86 0.2\n", 0x0F);
         print("Shell:         mini-sh 0.1\n", 0x0F);
-	   print("Init System:   dvInit 0.2\n", 0x0F);
-	   print("Arch:          i386 (x86)\n", 0x0F);
+	print("Init System:   dvInit 0.2\n", 0x0F);
+	print("Arch:          i386 (x86)\n", 0x0F);
     }
 
     // CREDITS: Muestra los creditos del sistema
@@ -88,8 +88,8 @@ void execute_command() {
 
     // CHANGELOG: Muestra los cambios de las versiones
     else if (strcmp(command_buffer, "changelog") == 0) {
-	print("0.1:\n", 0x0A);
-	print("- Primera version!!!\n", 0x0F);
+    print("0.1:\n", 0x0A);
+    print("- Primera version!!!\n", 0x0F);
 
     print("0.2:\n", 0x0A);
     print("- Reemplazado: Se elimino el bootloader GRUB por Syslinux.\n", 0x0F);
@@ -98,16 +98,21 @@ void execute_command() {
     print("- Corregido: Se reescribio el codigo y ahora es mas estable y ordenado.\n", 0x0F);
     print("- Añadido: Mas dispositivos compatible con poweroff.\n", 0x0F);
     print("- Añadido: Soporte para mayusculas.\n", 0x0F);
-	print("0.3:\n", 0x0A);
-
-	print("- Reemplazado: Se reemplazo el script de build, por uno mas robusto, mas\ndetallado, y mejor estructurado.\n", 0x0F);
-	print("- Corregido: Arte ascii de 'fetch' ahora esta bien hecho.\n", 0x0F);
-	print("- Corregido: Error al identificar la version de el sistema.\n", 0x0F);
-	print("- Eliminado: Eliminado el comando 'matrix', se planea añadir uno mejor\nimplementado pronto\n", 0x0F);
+   
+    print("0.3:\n", 0x0A);
+    print("- Reemplazado: Se reemplazo el script de build, por uno mas robusto, mas\ndetallado, y mejor estructurado.\n", 0x0F);
+    print("- Corregido: Arte ascii de 'fetch' ahora esta bien hecho.\n", 0x0F);
+    print("- Corregido: Error al identificar la version de el sistema.\n", 0x0F);
+    print("- Eliminado: Eliminado el comando 'matrix', se planea añadir uno mejor\nimplementado pronto.\n", 0x0F);
 
     print("0.4-rc1:\n", 0x0A);
-    print("- Corregido: Reestructuracion de codigo fuente\n", 0x0E);
-    print("Nota: Cada herramienta, se actualiza independientemente de las demás.\n", 0x0E);
+    print("- Corregido: Reestructuracion de codigo fuente.\n", 0x0E);
+    
+    print("0.4-rc2:\n", 0x0A);
+    print("- Corregido: Reestructuracion de codigo fuente.\n", 0x0E);
+    print("- Corregido: README.md del proyecto cambiado.\n", 0x0E);
+    print("- Corregido: Script de compilacion adaptado a la reestructuracion\nde codigo fuente.\n", 0x0E);
+    print("Nota: Cada herramienta, se actualiza independientemente de las demas.\n", 0x0E);
     }
 
     // FIN DE COMANDOS
