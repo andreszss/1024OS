@@ -29,36 +29,45 @@ Este proyecto es un experimento de desarrollo de sistemas operativos desde cero,
 
 ## Compilar
  1) Clonar el repositorio:
+ ```bash
+ $ git clone https://github.com/andrszss/1024OS.git
+ $ cd 1024OS
+ ```
+ 2) Ejecutar el script:
+ ```bash
+ $ ./build.sh
+ ```
+
+## Compilar (manualmente)
+ 1) Clonar el repositorio:
 ```bash
-git clone https://github.com/AndresBDW/1024OS.git
-cd 1024OS
+$ git clone https://github.com/andreszss/1024OS.git
+$ cd 1024OS
 ```
  2) Compilar el boot.asm:
 ```bash
-nasm -f elf32 boot.asm -o boot.o
+$ nasm -f elf32 src/boot.asm -o src/boot.o
 ```
  3) Compilar el binario:
 ```bash
-gcc -m32 -ffreestanding -fno-pic -fno-stack-protector -c kernel.c -o kernel.o
+$ gcc -m32 -ffreestanding -fno-pic -fno-stack-protector -Isrc -c src/kernel.c -o src/kernel.o
 ```
  4) Enlazar el kernel:
 ```bash
-ld -m elf_i386 -T linker.ld boot.o kernel.o -o pavilionix86.bin
+$ ld -m elf_i386 -T src/linker.ld src/boot.o src/kernel.o -o pavilionix86.bin
 ```
- 5) Mover el kernel compilado a la carpeta ISO:
+ 5) Mover el kernel compilado a la carpeta iso:
 ```bash
-mv pavilionix86.bin ISO
+$ mv pavilionix86.bin iso
 ```
  6) Generar la ISO:
 ```bash
-xorriso -as mkisofs -o 1024OS.iso -b isolinux.bin -c boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table ISO
+$ xorriso -as mkisofs -o 1024OS.iso -b isolinux.bin -c boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table iso
 ```
  7) Limpiar archivos temporales:
 ```bash
-rm *.o
+$ rm src/*.o
 ```
-
-**o, simplemente, usar el script "build.sh".**
 
 ---
 
