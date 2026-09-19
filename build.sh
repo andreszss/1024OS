@@ -47,7 +47,7 @@ main() {
 
 	log 2. building
 	nasm -f elf32 src/boot.asm -o src/boot.o 
-	gcc -m32 -ffreestanding -fno-pic -fno-stack-protector -c src/kernel.c -o src/kernel.o
+	gcc -m32 -ffreestanding -fno-pic -fno-stack-protector -Isrc -c src/kernel.c -o src/kernel.o
 	log 3. linking
 	ld -m elf_i386 -T src/linker.ld src/boot.o src/kernel.o -o $KERNEL_NAME 
 
@@ -59,7 +59,7 @@ main() {
 	xorriso -as mkisofs -o 1024OS.iso -b isolinux.bin -c boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table $ISO_DIR
 
 	log 6. cleaning
-	rm *.o 
+	rm src/*.o 
 
 	log iso generated successfully!
 }
