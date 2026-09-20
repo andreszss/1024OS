@@ -59,7 +59,7 @@ void kernel_main() {
     print("[OK] Limpiado de pantalla correcto.\n", 0x0A);
     print("----------------------------------\n", 0x02);
     print("Bienvenido a 1024OS!\n", 0x0A);
-    print("Version: 0.4-rc2\n", 0x0F);
+    print("Version: 0.4-rc3\n", 0x0F);
     print("Kernel: Pavilionix86 0.2\n", 0x0F);
     print("-> ", 0x07);
 

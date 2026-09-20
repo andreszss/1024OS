@@ -22,7 +22,7 @@ void execute_command() {
     // CLEAR: Limpiar pantalla
     else if (strcmp(command_buffer, "clear") == 0) {
         clear_screen();
-        print("> ", 0x07);
+        print("-> ", 0x07);
     }
 
     // BEEP: Suena un pitido
@@ -51,13 +51,13 @@ void execute_command() {
 
     // FETCH: Muestra la información del sistema
     else if (strcmp(command_buffer, "fetch") == 0) {
-		print(" _    ___   ____   _  _   \n", 0x0B);
+	print(" _    ___   ____   _  _   \n", 0x0B);
         print("/ |  / _ \\ |___ \\ | || |  \n", 0x0B);
         print("| | | | | |  __) || || |_ \n", 0x0B);
         print("| | | |_| | / __/ |__   _|\n", 0x0B);
         print("|_|  \\___/ |_____|   |_|  \n", 0x0B);
         print("--------------------------------------\n", 0x07);
-        print("OS:            1024OS v0.4-rc2\n", 0x0F);
+        print("OS:            1024OS v0.4-rc3\n", 0x0F);
         print("Kernel:        Pavilionix86 0.2\n", 0x0F);
         print("Shell:         mini-sh 0.1\n", 0x0F);
 	print("Init System:   dvInit 0.2\n", 0x0F);
@@ -112,6 +112,11 @@ void execute_command() {
     print("- Corregido: Reestructuracion de codigo fuente.\n", 0x0E);
     print("- Corregido: README.md del proyecto cambiado.\n", 0x0E);
     print("- Corregido: Script de compilacion adaptado a la reestructuracion\nde codigo fuente.\n", 0x0E);
+
+    print("0.4-rc3:\n", 0x0A);
+    print("- Corregido: README.md del proyecto cambiado.\n" 0x0E);
+    print("- Corregido: Bug al hacer 'clear' que el prompt no se restauraba\ncorrectamente.\n", 0x0E);
+    print("- Reemplazado: Script 'build.sh' por un Makefile.\n", 0x0E);
     print("Nota: Cada herramienta, se actualiza independientemente de las demas.\n", 0x0E);
     }
 
