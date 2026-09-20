@@ -114,7 +114,7 @@ void execute_command() {
     print("- Corregido: Script de compilacion adaptado a la reestructuracion\nde codigo fuente.\n", 0x0E);
 
     print("0.4-rc3:\n", 0x0A);
-    print("- Corregido: README.md del proyecto cambiado.\n" 0x0E);
+    print("- Corregido: README.md del proyecto cambiado.\n", 0x0E);
     print("- Corregido: Bug al hacer 'clear' que el prompt no se restauraba\ncorrectamente.\n", 0x0E);
     print("- Reemplazado: Script 'build.sh' por un Makefile.\n", 0x0E);
     print("Nota: Cada herramienta, se actualiza independientemente de las demas.\n", 0x0E);
