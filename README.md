@@ -1,9 +1,13 @@
 # 1024OS
 ~ Sistema simple hecho en C y Assembly. ~
 
+---
+
 # Que es 1024OS?
 1024OS es un sistema operativo ligero, hecho en C y Assembly, usando el kernel Pavilionix86.
 Este proyecto es un experimento de desarrollo de sistemas operativos desde cero, optimizado para ejecutarse en hardware real y emuladores.
+
+---
 
 # Caracteristicas
 - **No necesita instalacion** → Es un LiveCD que de momento, no necesita instalacion.
@@ -13,12 +17,16 @@ Este proyecto es un experimento de desarrollo de sistemas operativos desde cero,
 - **Ligero** → El kernel actual, pesa 10,9kb
 - **Simple** → Una terminal simple, tenemos planeado hacer una GUI.  
 
+---
+
 # Requisitos
 - **CPU:** Intel 80386 (i386)
 - **RAM:** 2MB (o hasta menos)
 - Al menos un **CD de 1MB** (no hemos probado usar el sistema con un pendrive, ni disquete.)
 - **BIOS:** Legacy (UEFI no funciona)
 - **Monitor:** Compatible con VGA
+
+---
 
 # Dependencias
 ## **Linux:**
@@ -32,6 +40,8 @@ Este proyecto es un experimento de desarrollo de sistemas operativos desde cero,
  - nasm
  - xorriso
  - make
+
+-
 
 # Como obtener las dependencias
 ## **Linux:**
@@ -76,6 +86,8 @@ Este proyecto es un experimento de desarrollo de sistemas operativos desde cero,
  $ pacman -S mingw-w64-toolchain nasm make xorriso
  ```
 
+--
+
 # Compilar
  1) Clonar el repositorio:
  ```shell
@@ -86,6 +98,8 @@ Este proyecto es un experimento de desarrollo de sistemas operativos desde cero,
  ```shell
  $ make
  ```
+
+---
 
 # Compilar (manualmente)
  1) Clonar el repositorio:
