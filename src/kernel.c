@@ -43,6 +43,8 @@
 //            KERNEL PRINCIPAL
 // ---------------------------------------
 
+void kernel_main(void) asm("kernel_main");
+
 void kernel_main() {
     // PRIMER BEEP
     beep(200);
