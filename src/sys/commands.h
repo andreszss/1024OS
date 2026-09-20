@@ -106,17 +106,18 @@ void execute_command() {
     print("- Eliminado: Eliminado el comando 'matrix', se planea añadir uno mejor\nimplementado pronto.\n", 0x0F);
 
     print("0.4-rc1:\n", 0x0A);
-    print("- Corregido: Reestructuracion de codigo fuente.\n", 0x0E);
+    print("- Corregido: Reestructuracion de codigo fuente.\n", 0x0F);
     
     print("0.4-rc2:\n", 0x0A);
-    print("- Corregido: Reestructuracion de codigo fuente.\n", 0x0E);
-    print("- Corregido: README.md del proyecto cambiado.\n", 0x0E);
-    print("- Corregido: Script de compilacion adaptado a la reestructuracion\nde codigo fuente.\n", 0x0E);
+    print("- Corregido: Reestructuracion de codigo fuente.\n", 0x0F);
+    print("- Corregido: README.md del proyecto cambiado.\n", 0x0F);
+    print("- Corregido: Script de compilacion adaptado a la reestructuracion\nde codigo fuente.\n", 0x0F);
 
     print("0.4-rc3:\n", 0x0A);
-    print("- Corregido: README.md del proyecto cambiado.\n", 0x0E);
-    print("- Corregido: Bug al hacer 'clear' que el prompt no se restauraba\ncorrectamente.\n", 0x0E);
-    print("- Reemplazado: Script 'build.sh' por un Makefile.\n", 0x0E);
+    print("- Corregido: README.md del proyecto cambiado.\n", 0x0F);
+    print("- Corregido: Bug al hacer 'clear' que el prompt no se restauraba\ncorrectamente.\n", 0x0F);
+    print("- Corregido: Misstyping de el codigo del comando changelog.\n", 0x0F);
+    print("- Reemplazado: Script 'build.sh' por un Makefile.\n", 0x0F);
     print("Nota: Cada herramienta, se actualiza independientemente de las demas.\n", 0x0E);
     }
 

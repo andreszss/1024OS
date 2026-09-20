@@ -36,7 +36,7 @@ Este proyecto es un experimento de desarrollo de sistemas operativos desde cero,
  - xorriso
  - make
 ## **Windows:**
- - mingw-w64
+ - mingw-w64-i686-toolchain
  - nasm
  - xorriso
  - make
@@ -83,7 +83,7 @@ Este proyecto es un experimento de desarrollo de sistemas operativos desde cero,
 
  4) Instala las dependencias:
  ```shell
- $ pacman -S mingw-w64-toolchain nasm make xorriso
+ $ pacman -S mingw-w64-i686-toolchain nasm make xorriso
  ```
 
 ---
