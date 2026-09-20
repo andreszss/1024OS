@@ -41,7 +41,7 @@ Este proyecto es un experimento de desarrollo de sistemas operativos desde cero,
  - xorriso
  - make
 
--
+---
 
 # Como obtener las dependencias
 ## **Linux:**
@@ -86,7 +86,7 @@ Este proyecto es un experimento de desarrollo de sistemas operativos desde cero,
  $ pacman -S mingw-w64-toolchain nasm make xorriso
  ```
 
---
+---
 
 # Compilar
  1) Clonar el repositorio:
