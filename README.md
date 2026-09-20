@@ -1,11 +1,11 @@
 # 1024OS
 ~ Sistema simple hecho en C y Assembly. ~
 
-## Que es 1024OS?
+# Que es 1024OS?
 1024OS es un sistema operativo ligero, hecho en C y Assembly, usando el kernel Pavilionix86.
 Este proyecto es un experimento de desarrollo de sistemas operativos desde cero, optimizado para ejecutarse en hardware real y emuladores.
 
-## Caracteristicas
+# Caracteristicas
 - **No necesita instalacion** → Es un LiveCD que de momento, no necesita instalacion.
 - **Compatible en PCs viejas** → Probado en una pc con 2mb de RAM.
 - **Multiboot** → Compatible con cargadores de arranque actuales (GRUB/Syslinux)
@@ -13,28 +13,28 @@ Este proyecto es un experimento de desarrollo de sistemas operativos desde cero,
 - **Ligero** → El kernel actual, pesa 10,9kb
 - **Simple** → Una terminal simple, tenemos planeado hacer una GUI.  
 
-## Requisitos
+# Requisitos
 - **CPU:** Intel 80386 (i386)
 - **RAM:** 2MB (o hasta menos)
 - Al menos un **CD de 1MB** (no hemos probado usar el sistema con un pendrive, ni disquete.)
 - **BIOS:** Legacy (UEFI no funciona)
 - **Monitor:** Compatible con VGA
 
-## Dependencias
-- **Linux:**
+# Dependencias
+## **Linux:**
  - nasm
  - gcc
  - binutils
  - xorriso
  - make
-- **Windows:**
+## **Windows:**
  - mingw-w64
  - nasm
  - xorriso
  - make
 
-## Como obtener las dependencias
-- **Linux:**
+# Como obtener las dependencias
+## **Linux:**
  - **Base Debian (Ubuntu, Linux Mint, etc):**
   ```shell
   # apt update
@@ -61,7 +61,7 @@ Este proyecto es un experimento de desarrollo de sistemas operativos desde cero,
   # apk add build-base nasm xorriso
   ```
 
-- **Windows:**
+## **Windows:**
  1) Descarga [MSYS2](https://msys2.org)
 
  2) Abre la terminal de MSYS2
@@ -76,7 +76,7 @@ Este proyecto es un experimento de desarrollo de sistemas operativos desde cero,
  $ pacman -S mingw-w64-toolchain nasm make xorriso
  ```
 
-## Compilar
+# Compilar
  1) Clonar el repositorio:
  ```shell
  $ git clone https://github.com/andrszss/1024OS.git
@@ -87,7 +87,7 @@ Este proyecto es un experimento de desarrollo de sistemas operativos desde cero,
  $ make
  ```
 
-## Compilar (manualmente)
+# Compilar (manualmente)
  1) Clonar el repositorio:
 ```shell
 $ git clone https://github.com/andreszss/1024OS.git
