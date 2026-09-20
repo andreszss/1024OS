@@ -15,7 +15,7 @@ endef
 endif
 
 all: $(ISO)
-	@echo "-> iso generada correctamente (michi gay)"
+	@echo "-> iso generada correctamente"
 
 src/boot.o: src/boot.asm
 	nasm -f elf32 src/boot.asm -o src/boot.o
