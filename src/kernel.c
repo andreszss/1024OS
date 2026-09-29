@@ -1,67 +1,21 @@
-// -------------------------------------------------
-// 1024OS - Un OS Simple
-// - Por Andresqwq
-// -------------------------------------------------
-
-// -------------------------------------------------
-// /* --- COMUNICACION CON EL CPU (I/O PORTS) --- */    
-// -------------------------------------------------
-
 #include <sys/cpu.h>
-
-// ------------------------------------------
-// /* --- RECURSOS DEL SISTEMA Y VIDEO --- */
-// ------------------------------------------
-
 #include <sys/sysrecurses.h>
-
-// --------------------------------------------
-// /* --- UTILIDADES DE PANTALLA Y DELAY --- */
-// --------------------------------------------
-
 #include <sys/screen.h>
-
-// -----------------------------------------
-// /* --- FUNCIONES DE NUCLEO Y TEXTO --- */
-// -----------------------------------------
-
 #include <sys/functions.h>
-
-// ----------------------------------
-// /* --- VARIABLES DE ENTORNO --- */
-// ----------------------------------
-
 #include <sys/variables.h>
-
-// ------------------------------------
-// /* --- PROCESADOR DE COMANDOS --- */
-// ------------------------------------
-
+#include <sys/hardware.h>   // <- NUEVO HEADER DE HARDWARE
 #include <sys/commands.h>
-
-// ---------------------
-// /* --- TECLADO --- */
-// ---------------------
-
 #include <sys/keyboard.h>
-
-// ---------------------------------------
-//            KERNEL PRINCIPAL
-// ---------------------------------------
 
 void kernel_main(void) asm("kernel_main");
 
 void kernel_main() {
-    // INICIALIZACIÓN DE VARIABLES DE ENTORNO
     init_env_variables();
-
-    // PRIMER BEEP
     beep(200);
-    // DESACTIVAR PIC
-    outb(0x21, 0xFD); // SOLO IRQ 1
-    outb(0xA1, 0xFF); // DESACTIVAR PIC
-    // INICIO
+    outb(0x21, 0xFD);
+    outb(0xA1, 0xFF);
     clear_screen();
+    
     print("Cargando Kernel: Pavilionix86 0.2...\n", 0x0A);
     print("Iniciando kernel: Pavilionix86 0.2...\n", 0x0A);
     print("dvInit 0.2 esta iniciando...\n", 0x0A);
@@ -72,7 +26,6 @@ void kernel_main() {
     print("Kernel: Pavilionix86 0.2\n", 0x0F);
     print("-> ", 0x07);
 
-    // KERNEL
     while(1) {
         if (inb(0x64) & 0x01) {
             unsigned char sc = inb(0x60);

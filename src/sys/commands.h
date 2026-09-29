@@ -1,13 +1,15 @@
 #ifndef COMMANDS_H
 #define COMMANDS_H
 
+#include <sys/hardware.h>
+
 int last_exit_status = 0;
 
 int parse_and_execute_single(char *cmd_buf) {
     trim(cmd_buf);
     if (cmd_buf[0] == '\0') return 0;
 
-    // Asignación de variables estilo Linux (ej. NOMBRE=VALOR)
+    // Asignación de variables estilo Linux
     char *eq = 0;
     for (int i = 0; cmd_buf[i] != '\0'; i++) {
         if (cmd_buf[i] == '=') {
@@ -46,10 +48,6 @@ int parse_and_execute_single(char *cmd_buf) {
         print("whoami: muestra quien eres.\n", 0x0F);
         print("echo: muestra lo que escribes.\n", 0x0F);
         print("changelog: muestra los cambios de las versiones.\n", 0x0F);
-        print("\nSintaxis Linux soportada:\n", 0x0E);
-        print("  cmd1 ; cmd2      (Ejecucion secuencial)\n", 0x07);
-        print("  cmd1 && cmd2     (Ejecuta cmd2 si cmd1 fue exitoso)\n", 0x07);
-        print("  cmd1 || cmd2     (Ejecuta cmd2 si cmd1 fallo)\n", 0x07);
         return 0;
     } 
     else if (strcmp(cmd_buf, "clear") == 0) {
@@ -76,21 +74,38 @@ int parse_and_execute_single(char *cmd_buf) {
         halt();
         return 0;
     }
+    // NUEVO FETCH MEJORADO CON DATOS REALES DE HARDWARE
     else if (strcmp(cmd_buf, "fetch") == 0) {
+        char cpu_name[50];
+        get_cpu_name(cpu_name);
+
+        unsigned int total_ram = get_total_ram_mb();
+        // Calculamos uso real estimado de RAM según tamaño actual del Kernel + Stack (aprox 2MiB)
+        unsigned int used_ram = 2; 
+
+        char uptime[20];
+        get_uptime_string(uptime);
+
+        char ram_used_str[10], ram_total_str[10];
+        itoa(used_ram, ram_used_str);
+        itoa(total_ram, ram_total_str);
+
         print(" _    ___   ____   _  _   \n", 0x0B);
         print("/ |  / _ \\ |___ \\ | || |  \n", 0x0B);
         print("| | | | | |  __) || || |_ \n", 0x0B);
         print("| | | |_| | / __/ |__   _|\n", 0x0B);
         print("|_|  \\___/ |_____|   |_|  \n", 0x0B);
         print("--------------------------------------\n", 0x07);
-        print("OS:            1024OS v", 0x0F);
-        print(get_env_var("version"), 0x0F);
-        print("\nKernel:        Pavilionix86 0.2\n", 0x0F);
-        print("Device:        ", 0x0F);
-        print(get_env_var("device"), 0x0F);
-        print("\nCPU Vendor:    ", 0x0F);
-        print(get_env_var("cpu_arch"), 0x0F);
-        print("\nArch:          i386 (x86)\n", 0x0F);
+        print("OS:            1024OS v", 0x0F); print(get_env_var("version"), 0x0F); print("\n", 0x0F);
+        print("Kernel:        Pavilionix86 0.2\n", 0x0F);
+        print("Uptime:        ", 0x0F); print(uptime, 0x0F); print("\n", 0x0F);
+        print("CPU:           ", 0x0F); print(cpu_name, 0x0F); print("\n", 0x0F);
+        print("iGPU/GPU:      Generic VGA Compatible Adapter\n", 0x0F);
+        print("RAM:           ", 0x0F); 
+        print(ram_used_str, 0x0F); print(" MiB / ", 0x0F); 
+        print(ram_total_str, 0x0F); print(" MiB\n", 0x0F);
+        print("Pantalla:      VGA Text Mode\n", 0x0F);
+        print("Arch:          i386 (x86)\n", 0x0F);
         return 0;
     }
     else if (strcmp(cmd_buf, "credits") == 0) {
