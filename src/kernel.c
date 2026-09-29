@@ -27,6 +27,12 @@
 
 #include <sys/functions.h>
 
+// ----------------------------------
+// /* --- VARIABLES DE ENTORNO --- */
+// ----------------------------------
+
+#include <sys/variables.h>
+
 // ------------------------------------
 // /* --- PROCESADOR DE COMANDOS --- */
 // ------------------------------------
@@ -46,6 +52,9 @@
 void kernel_main(void) asm("kernel_main");
 
 void kernel_main() {
+    // INICIALIZACIÓN DE VARIABLES DE ENTORNO
+    init_env_variables();
+
     // PRIMER BEEP
     beep(200);
     // DESACTIVAR PIC

@@ -1,3 +1,6 @@
+#ifndef KEYBOARD_H
+#define KEYBOARD_H
+
 char get_ascii(unsigned char sc, int shift) {
     static char map_normal[128] = {
         0, 0, '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 0, 0, 0, 0,
@@ -13,9 +16,11 @@ char get_ascii(unsigned char sc, int shift) {
         'Z', 'X', 'C', 'V', 'B', 'N', 'M'
     };
 
-    if (sc == 0x39) return ' '; // Espacio
+    if (sc == 0x39) return ' ';
     if (sc < 128) {
         return shift ? map_shift[sc] : map_normal[sc];
     }
     return 0;
 }
+
+#endif
