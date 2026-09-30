@@ -47,7 +47,6 @@ int parse_and_execute_single(char *cmd_buf) {
         print("credits: muestra los creditos.\n", 0x0F);
         print("whoami: muestra quien eres.\n", 0x0F);
         print("echo: muestra lo que escribes.\n", 0x0F);
-        print("changelog: muestra los cambios de las versiones.\n", 0x0F);
         return 0;
     } 
     else if (strcmp(cmd_buf, "clear") == 0) {
