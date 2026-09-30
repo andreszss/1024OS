@@ -109,7 +109,8 @@ int parse_and_execute_single(char *cmd_buf) {
         return 0;
     }
     else if (strcmp(cmd_buf, "credits") == 0) {
-        print("Hecho por: Andresqwq\n", 0x0B);
+        print("Hecho principalmente por: Andresqwq\n", 0x0B);
+	print("Con ayuda de: ElmichiYT\n", 0x0B);
         beep(50);
         return 0;
     }
