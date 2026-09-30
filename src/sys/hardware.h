@@ -3,11 +3,10 @@
 
 #include <sys/cpu.h>
 
-// 1. OBTENER NOMBRE REAL DEL PROCESADOR (CPUID Brand String)
+// obtener nombre real del procesador
 void get_cpu_name(char *buffer) {
     unsigned int eax, ebx, ecx, edx;
     
-    // Comprobar si CPUID soporta las funciones extendidas
     asm volatile ("cpuid" : "=a"(eax) : "a"(0x80000000));
     
     if (eax >= 0x80000004) {
@@ -19,12 +18,11 @@ void get_cpu_name(char *buffer) {
         }
         buffer[48] = '\0';
     } else {
-        // Fallback si no soporta la cadena completa
         get_cpu_vendor(buffer);
     }
 }
 
-// 2. OBTENER MEMORIA RAM REAL (Consulta al CMOS)
+// obtener memoria ram 
 unsigned int get_total_ram_mb() {
     outb(0x70, 0x30);
     unsigned char low = inb(0x71);
@@ -36,7 +34,7 @@ unsigned int get_total_ram_mb() {
     return 1 + (kb_ext / 1024);
 }
 
-// Convierte enteros a texto para impresión rápida sin printf
+// enteros a texto para impresión rapida sin printf
 void itoa(int n, char *str) {
     int i = 0, is_neg = 0;
     if (n < 0) { is_neg = 1; n = -n; }
@@ -56,13 +54,11 @@ void itoa(int n, char *str) {
     }
 }
 
-// 3. UPTIME (Basado en el reloj de sistema/ticks PIT)
+// uptime
 void get_uptime_string(char *buffer) {
-    // El timer del PIT vibra aprox. 18.2 veces por segundo por defecto en PC
-    // Estimación mediante lectura de puerto 0x40 / contador
     static unsigned int ticks = 0;
     ticks++; 
-    unsigned int total_seconds = ticks / 100; // Aproximación
+    unsigned int total_seconds = ticks / 100;
     unsigned int mins = total_seconds / 60;
     unsigned int secs = total_seconds % 60;
     

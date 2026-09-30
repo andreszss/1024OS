@@ -5,7 +5,7 @@ char command_buffer[80];
 int buffer_idx = 0;
 
 void beep(int duracion_ms) {
-    unsigned int div = 1193180 / 750; // Frecuencia de 750 Hz
+    unsigned int div = 1193180 / 750; 
     outb(0x43, 0xB6);
     outb(0x42, (unsigned char)(div));
     outb(0x42, (unsigned char)(div >> 8));

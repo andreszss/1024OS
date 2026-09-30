@@ -9,7 +9,6 @@ int parse_and_execute_single(char *cmd_buf) {
     trim(cmd_buf);
     if (cmd_buf[0] == '\0') return 0;
 
-    // Asignación de variables estilo Linux
     char *eq = 0;
     for (int i = 0; cmd_buf[i] != '\0'; i++) {
         if (cmd_buf[i] == '=') {
@@ -73,13 +72,11 @@ int parse_and_execute_single(char *cmd_buf) {
         halt();
         return 0;
     }
-    // NUEVO FETCH MEJORADO CON DATOS REALES DE HARDWARE
     else if (strcmp(cmd_buf, "fetch") == 0) {
         char cpu_name[50];
         get_cpu_name(cpu_name);
 
         unsigned int total_ram = get_total_ram_mb();
-        // Calculamos uso real estimado de RAM según tamaño actual del Kernel + Stack (aprox 2MiB)
         unsigned int used_ram = 2; 
 
         char uptime[20];
