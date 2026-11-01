@@ -3,7 +3,7 @@
 #include <sys/screen.h>
 #include <sys/functions.h>
 #include <sys/variables.h>
-#include <sys/hardware.h>   // <- NUEVO HEADER DE HARDWARE
+#include <sys/hardware.h>
 #include <sys/commands.h>
 #include <sys/keyboard.h>
 
@@ -11,6 +11,7 @@ void kernel_main(void) asm("kernel_main");
 
 void kernel_main() {
     init_env_variables();
+    uptime_init();
     beep(200);
     outb(0x21, 0xFD);
     outb(0xA1, 0xFF);
