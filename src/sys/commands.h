@@ -5,6 +5,49 @@
 
 int last_exit_status = 0;
 
+int cmd_uname(const char *args) {
+    int s = 0, r = 0, v = 0, m = 0;
+    int i = 0;
+
+    while (args[i] != '\0') {
+        if (args[i] == ' ') { i++; continue; }
+
+        if (args[i] != '-' || args[i + 1] == '\0' || args[i + 1] == ' ') {
+            print("Uso: uname [-asrvm]\n", 0x0E);
+            return 1;
+        }
+        i++;
+        while (args[i] != '\0' && args[i] != ' ') {
+            switch (args[i]) {
+                case 'a': s = r = v = m = 1; break;
+                case 's': s = 1; break;
+                case 'r': r = 1; break;
+                case 'v': v = 1; break;
+                case 'm': m = 1; break;
+                default: {
+                    char bad[2] = { args[i], '\0' };
+                    print("uname: opcion invalida -- ", 0x0C);
+                    print(bad, 0x0C);
+                    print("\n", 0x0C);
+                    print("Uso: uname [-asrvm]\n", 0x0E);
+                    return 1;
+                }
+            }
+            i++;
+        }
+    }
+
+    if (!(s || r || v || m)) s = 1;
+
+    int first = 1;
+    if (s) { print("1024OS", 0x0F); first = 0; }
+    if (r) { if (!first) print(" ", 0x0F); print(get_env_var("kernel"), 0x0F); first = 0; }
+    if (v) { if (!first) print(" ", 0x0F); print(get_env_var("version"), 0x0F); first = 0; }
+    if (m) { if (!first) print(" ", 0x0F); print("i386", 0x0F); first = 0; }
+    print("\n", 0x0F);
+    return 0;
+}
+
 int parse_and_execute_single(char *cmd_buf) {
     trim(cmd_buf);
     if (cmd_buf[0] == '\0') return 0;
@@ -38,6 +81,7 @@ int parse_and_execute_single(char *cmd_buf) {
         print("clear: limpiar la pantalla.\n", 0x0F);
         print("beep: suena un pitido.\n", 0x0F);
         print("fetch: muestra la info del sistema.\n", 0x0F);
+        print("uname: muestra el nombre y version del sistema (-a -s -r -v -m).\n", 0x0F);
         print("poweroff: apaga el equipo.\n", 0x0F);
         print("reboot: reinicia el equipo.\n", 0x0F);
         print("credits: muestra los creditos.\n", 0x0F);
@@ -121,6 +165,10 @@ int parse_and_execute_single(char *cmd_buf) {
         return 1;
     }
     else if (strcmp(cmd_buf, "uname") == 0) {
+        return cmd_uname("");
+    }
+    else if (strncmp(cmd_buf, "uname ", 6) == 0) {
+        return cmd_uname(&cmd_buf[6]);
     }
 
     print("Comando desconocido: ", 0x0C);
