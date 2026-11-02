@@ -25,3 +25,5 @@ hang:
 section .bss
 resb 8192                       ; Reservamos 8KB para la pila (stack)
 stack_space:
+
+section .note.GNU-stack noalloc noexec nowrite progbits

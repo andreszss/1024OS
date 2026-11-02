@@ -10,7 +10,7 @@ define LINK_KERNEL
 endef
 else
 define LINK_KERNEL
-	ld -m elf_i386 -T src/linker.ld src/boot.o src/kernel.o -o $(KERNEL)
+	ld -m elf_i386 --no-warn-rwx-segments -T src/linker.ld src/boot.o src/kernel.o -o $(KERNEL)
 endef
 endif
 

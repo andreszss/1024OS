@@ -1,8 +1,8 @@
-ENTRY(_start)                /* El punto de entrada es _start en boot.asm */
+ENTRY(_start)                
 SECTIONS {
-    . = 1M;                  /* Cargamos el kernel en el primer Megabyte */
+    . = 1M;                  
     .text : { 
-        *(.multiboot)        /* La cabecera SIEMPRE va primero */
+        *(.multiboot)        
         *(.text) 
     }
     .data : { *(.data) }
