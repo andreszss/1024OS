@@ -1,4 +1,5 @@
 *.iso
 *.img
 *.o
-pavilionix86.bin
+/1024
+/iso/1024

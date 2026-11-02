@@ -17,14 +17,19 @@ void kernel_main() {
     outb(0xA1, 0xFF);
     clear_screen();
     
-    print("Cargando Kernel: Pavilionix86 0.2...\n", 0x0A);
-    print("Iniciando kernel: Pavilionix86 0.2...\n", 0x0A);
-    print("dvInit 0.2 esta iniciando...\n", 0x0A);
-    print("[OK] Limpiado de pantalla correcto.\n", 0x0A);
+    char cpu_name[50];
+    char mem_str[12];
+    get_cpu_name(cpu_name);
+    itoa(get_total_ram_mb(), mem_str);
+
+    print("1024OS 0.4 (GENERIC) #0\n", 0x0A);
+    print("kernel: 1024 0.2\n", 0x0A);
+    print("cpu0: ", 0x0A); print(cpu_name, 0x0A); print("\n", 0x0A);
+    print("real mem = ", 0x0A); print(mem_str, 0x0A); print(" MB\n", 0x0A);
+    print("init: iniciando\n", 0x0A);
+    print("init: pantalla limpiada\n", 0x0A);
     print("----------------------------------\n", 0x02);
     print("Bienvenido a 1024OS!\n", 0x0A);
-    print("Version: 0.4-rc3\n", 0x0F);
-    print("Kernel: Pavilionix86 0.2\n", 0x0F);
     print("-> ", 0x07);
 
     while(1) {

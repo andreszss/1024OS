@@ -1,5 +1,5 @@
 ISO_DIR = iso
-KERNEL = pavilionix86.bin
+KERNEL = 1024
 ISO = 1024OS.iso
 
 ifeq ($(OS),Windows_NT)

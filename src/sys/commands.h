@@ -93,7 +93,7 @@ int parse_and_execute_single(char *cmd_buf) {
         print("|_|  \\___/ |_____|   |_|  \n", 0x0B);
         print("--------------------------------------\n", 0x07);
         print("OS:            1024OS v", 0x0F); print(get_env_var("version"), 0x0F); print("\n", 0x0F);
-        print("Kernel:        Pavilionix86 0.2\n", 0x0F);
+        print("Kernel:        1024 0.2 (GENERIC)\n", 0x0F);
         print("Uptime:        ", 0x0F); print(uptime, 0x0F); print("\n", 0x0F);
         print("CPU:           ", 0x0F); print(cpu_name, 0x0F); print("\n", 0x0F);
         print("iGPU/GPU:      Generic VGA Compatible Adapter\n", 0x0F);

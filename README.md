@@ -4,7 +4,7 @@
 ---
 
 # Que es 1024OS?
-1024OS es un sistema operativo ligero, hecho en C y Assembly, usando el kernel Pavilionix86.
+1024OS es un sistema operativo ligero, hecho en C y Assembly, usando el kernel 1024.
 Este proyecto es un experimento de desarrollo de sistemas operativos desde cero, optimizado para ejecutarse en hardware real y emuladores.
 
 ---
@@ -117,11 +117,11 @@ $ gcc -m32 -ffreestanding -fno-pic -fno-stack-protector -Isrc -c src/kernel.c -o
 ```
  4) Enlazar el kernel:
 ```shell
-$ ld -m elf_i386 -T src/linker.ld src/boot.o src/kernel.o -o pavilionix86.bin
+$ ld -m elf_i386 -T src/linker.ld src/boot.o src/kernel.o -o 1024
 ```
  5) Mover el kernel compilado a la carpeta iso:
 ```shell
-$ mv pavilionix86.bin iso
+$ mv 1024 iso
 ```
  6) Generar la ISO:
 ```shell
