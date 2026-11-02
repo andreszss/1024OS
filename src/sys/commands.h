@@ -12,11 +12,14 @@ int cmd_uname(const char *args) {
     while (args[i] != '\0') {
         if (args[i] == ' ') { i++; continue; }
 
-        if (args[i] != '-' || args[i + 1] == '\0' || args[i + 1] == ' ') {
-            print("Uso: uname [-asrvm]\n", 0x0E);
-            return 1;
+        if (args[i] == '-') {
+            i++;
+            if (args[i] == '\0' || args[i] == ' ') {
+                print("Uso: uname [asrvm]\n", 0x0E);
+                return 1;
+            }
         }
-        i++;
+
         while (args[i] != '\0' && args[i] != ' ') {
             switch (args[i]) {
                 case 'a': s = r = v = m = 1; break;
@@ -29,7 +32,7 @@ int cmd_uname(const char *args) {
                     print("uname: opcion invalida -- ", 0x0C);
                     print(bad, 0x0C);
                     print("\n", 0x0C);
-                    print("Uso: uname [-asrvm]\n", 0x0E);
+                    print("Uso: uname [asrvm]\n", 0x0E);
                     return 1;
                 }
             }
