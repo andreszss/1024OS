@@ -22,13 +22,13 @@ void kernel_main() {
     get_cpu_name(cpu_name);
     itoa(get_total_ram_mb(), mem_str);
 
-    print("1024OS 0.4 (GENERIC) #0\n", 0x07);
-    print("kernel: 1024 0.2\n", 0x07);
-    print("cpu0: ", 0x07); print(cpu_name, 0x07); print("\n", 0x07);
-    print("real mem = ", 0x07); print(mem_str, 0x07); print(" MB\n", 0x07);
-    print("init: iniciando\n", 0x07);
-    print("init: pantalla limpiada\n", 0x07);
-    print("Bienvenido a ", 0x07); print("1024OS", 0x0A); print("!\n", 0x07);
+    print("1024OS v0.4 (stable)\n", 0x0F);
+    print("kernel: 1024 0.2-RELEASE\n", 0x0F);
+    print("cpu0: ", 0x0F); print(cpu_name, 0x0F); print("\n", 0x0F);
+    print("real mem = ", 0x0F); print(mem_str, 0x0F); print(" MB\n", 0x0F);
+    print("init: iniciando\n", 0x0F);
+    print("init: pantalla limpiada\n", 0x0F);
+    print("Bienvenido a ", 0x0F); print("1024OS", 0x0A); print("!\n", 0x0F);
     print("-> ", 0x07);
 
     while(1) {

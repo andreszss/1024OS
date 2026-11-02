@@ -26,15 +26,18 @@ void init_env_variables() {
     env_var_count = 0;
 
     strcpy(env_vars[0].name, "version");
-    strcpy(env_vars[0].value, "0.4");
+    strcpy(env_vars[0].value, "0.4 (stable)");
 
-    strcpy(env_vars[1].name, "device");
-    strcpy(env_vars[1].value, "PC x86 (Compatible)");
+    strcpy(env_vars[1].name, "kernel");
+    strcpy(env_vars[1].value, "0.2-RELEASE");
 
-    strcpy(env_vars[2].name, "cpu_arch");
-    get_cpu_vendor(env_vars[2].value);
+    strcpy(env_vars[2].name, "device");
+    strcpy(env_vars[2].value, "PC x86 (Compatible)");
 
-    env_var_count = 3;
+    strcpy(env_vars[3].name, "cpu_arch");
+    get_cpu_vendor(env_vars[3].value);
+
+    env_var_count = 4;
 }
 
 const char* get_env_var(const char *name) {
