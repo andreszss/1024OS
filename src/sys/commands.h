@@ -27,13 +27,10 @@ int parse_and_execute_single(char *cmd_buf) {
         return 0;
     }
 
-    // HELP VARIABLES
     if (strcmp(cmd_buf, "help variables") == 0) {
         print_variables_help();
         return 0;
     }
-
-    // HELP
     if (strcmp(cmd_buf, "help") == 0) {
         print("Comandos:\n", 0x0A);
         print("help: muestra esto.\n", 0x0F);
@@ -106,7 +103,7 @@ int parse_and_execute_single(char *cmd_buf) {
     }
     else if (strcmp(cmd_buf, "credits") == 0) {
         print("Hecho principalmente por: Andresqwq\n", 0x0B);
-	print("Con ayuda de: ElmichiYT\n", 0x0B);
+	    print("Con ayuda de: ElmichiYT\n", 0x0B);
         beep(50);
         return 0;
     }
@@ -122,6 +119,8 @@ int parse_and_execute_single(char *cmd_buf) {
     else if (strcmp(cmd_buf, "echo") == 0) {
         print("Uso: echo <mensaje>\n", 0x0E);
         return 1;
+    }
+    else if (strcmp(cmd_buf, "uname") == 0) {
     }
 
     print("Comando desconocido: ", 0x0C);
