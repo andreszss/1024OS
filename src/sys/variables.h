@@ -26,7 +26,7 @@ void init_env_variables() {
     env_var_count = 0;
 
     strcpy(env_vars[0].name, "version");
-    strcpy(env_vars[0].value, "0.4-rc3");
+    strcpy(env_vars[0].value, "0.4");
 
     strcpy(env_vars[1].name, "device");
     strcpy(env_vars[1].value, "PC x86 (Compatible)");
